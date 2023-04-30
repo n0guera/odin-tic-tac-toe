@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Norse-Bold;
+  src: url(../fonts/Norse-Bold.otf);
+}
+
+body {
+  margin: 0;
+}
+
+#header {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-family: Norse-Bold, sans-serif;
+  padding: 8px;
+}
+
+.logo {
+  height: 64px;
+  width: auto;
+}
