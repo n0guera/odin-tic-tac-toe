@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap');
+
 @font-face {
   font-family: Norse-Bold;
   src: url(../fonts/Norse-Bold.otf);
@@ -5,17 +7,55 @@
 
 body {
   margin: 0;
+  font-family: 'Darumadrop One', cursive;
+  background-color: #170b1a;
+  color: white;
+  text-align: center;
 }
 
 #header {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   font-family: Norse-Bold, sans-serif;
   padding: 8px;
+  gap: 12px;
 }
 
 .logo {
-  height: 64px;
+  height: 78px;
   width: auto;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+#player-name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#player-name-label {
+  font-size: 2rem;
+}
+
+#player-name {
+  color: white;
+  background-color: black;
+  font-family: 'Darumadrop One', cursive;
+  font-size: large;
+  border: 2px solid white;
+  border-radius: 4px;
+}
+
+#play-btn {
+  font-size: 1.5rem;
 }
