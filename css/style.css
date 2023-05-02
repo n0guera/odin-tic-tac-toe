@@ -7,10 +7,18 @@
 
 body {
   margin: 0;
-  font-family: 'Darumadrop One', cursive;
-  background-color: #170b1a;
+  background-color: #293c40;
   color: white;
   text-align: center;
+}
+
+#player-name-container,
+#player-name,
+#player-name-label,
+#play-btn {
+  display: flex;
+  align-items: center;
+  font-family: 'Darumadrop One', cursive;
 }
 
 #header {
@@ -33,6 +41,7 @@ h1 {
 }
 
 h2 {
+  font-family: 'Darumadrop One', cursive;
   font-size: 3rem;
 }
 
@@ -48,14 +57,25 @@ h2 {
 }
 
 #player-name {
-  color: white;
-  background-color: black;
-  font-family: 'Darumadrop One', cursive;
+  background-color: #b9c5cc;
   font-size: large;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 4px;
 }
 
 #play-btn {
+  border: 2px solid black;
+  border-radius: 4px;
+  background-color: #ffbf40;
+  color: black;
+  max-height: 2rem;
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+#board-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
