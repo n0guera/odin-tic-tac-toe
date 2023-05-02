@@ -12,7 +12,6 @@ body {
   text-align: center;
 }
 
-#player-name-container,
 #player-name,
 #player-name-label,
 #play-btn {
@@ -47,8 +46,9 @@ h2 {
 
 #player-name-container {
   display: flex;
+  flex-direction: column;
+  text-align: center;
   align-items: center;
-  justify-content: center;
   gap: 8px;
 }
 
@@ -57,8 +57,9 @@ h2 {
 }
 
 #player-name {
+  text-align: center;
   background-color: #b9c5cc;
-  font-size: large;
+  font-size: 2rem;
   border: 2px solid black;
   border-radius: 4px;
 }
@@ -68,8 +69,7 @@ h2 {
   border-radius: 4px;
   background-color: #ffbf40;
   color: black;
-  max-height: 2rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
 }
