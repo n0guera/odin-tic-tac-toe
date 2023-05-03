@@ -29,9 +29,18 @@ playBtn.addEventListener('click', (e) => {
   const player = createPlayer(playerName.value);
 
   playerNameContainer.style.display = 'none';
-  const displayName = document.createElement('h4');
+
+  const displayName = document.createElement('h3');
   displayName.textContent = player.name;
   matchInfo.appendChild(displayName);
+
+  const displayVersus = document.createElement('h3');
+  displayVersus.textContent = 'vs';
+  matchInfo.appendChild(displayVersus);
+
+  const displayOpponentName = document.createElement('h3');
+  displayOpponentName.textContent = 'AI';
+  matchInfo.appendChild(displayOpponentName);
 
   gameBoard.createGameBoard();
 });

@@ -44,6 +44,11 @@ h2 {
   font-size: 3rem;
 }
 
+h3 {
+  font-family: 'Darumadrop One', cursive;
+  font-size: 2rem;
+}
+
 #player-name-container {
   display: flex;
   flex-direction: column;
@@ -74,6 +79,12 @@ h2 {
   align-items: center;
 }
 
+#match-info {
+  display: flex;
+  justify-content: center;
+  gap: 128px;
+}
+
 #board-container {
   display: grid;
   justify-content: center;
@@ -84,7 +95,7 @@ h2 {
 
 .cell {
   background-color: #fff9b3;
-  height: 64px;
-  width: 64px;
+  height: 128px;
+  width: 128px;
   border: 2px solid #cc1424;
 }
