@@ -76,6 +76,15 @@ h2 {
 
 #board-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  margin: 8px;
+  grid-template-columns: repeat(3, min-content);
+  grid-template-rows: repeat(3, min-content);
+}
+
+.cell {
+  background-color: #fff9b3;
+  height: 64px;
+  width: 64px;
+  border: 2px solid #cc1424;
 }
