@@ -79,10 +79,9 @@ h3 {
   align-items: center;
 }
 
-#match-info {
+#players-display {
   display: flex;
-  justify-content: center;
-  gap: 128px;
+  justify-content: space-evenly;
 }
 
 #board-container {

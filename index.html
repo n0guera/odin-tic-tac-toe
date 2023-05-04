@@ -9,17 +9,19 @@
     <script src="js/script.js" defer></script>
   </head>
   <body>
-    <div id="header">
+    <header id="header">
       <img src="img/odin-lined.png" alt="The Odin Project Logo" class="logo" />
       <h1>The Odin Project</h1>
-    </div>
+    </header>
     <h2>Tic Tac Toe!</h2>
     <div id="player-name-container">
       <label for="player-name" id="player-name-label">Your name</label>
       <input type="text" id="player-name" name="player-name" />
       <button type="submit" id="play-btn">Play</button>
     </div>
-    <div id="match-info"></div>
+    <div id="match-info">
+      <div id="players-display"></div>
+    </div>
     <div id="board-container"></div>
   </body>
 </html>

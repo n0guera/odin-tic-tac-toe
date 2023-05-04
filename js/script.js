@@ -1,7 +1,7 @@
 const playerNameContainer = document.querySelector('#player-name-container');
 const playerName = document.querySelector('#player-name');
 const playBtn = document.querySelector('#play-btn');
-const matchInfo = document.querySelector('#match-info');
+const playersDisplay = document.querySelector('#players-display');
 const boardContainer = document.querySelector('#board-container');
 const board = [];
 
@@ -32,15 +32,15 @@ playBtn.addEventListener('click', (e) => {
 
   const displayName = document.createElement('h3');
   displayName.textContent = player.name;
-  matchInfo.appendChild(displayName);
+  playersDisplay.appendChild(displayName);
 
   const displayVersus = document.createElement('h3');
   displayVersus.textContent = 'vs';
-  matchInfo.appendChild(displayVersus);
+  playersDisplay.appendChild(displayVersus);
 
   const displayOpponentName = document.createElement('h3');
   displayOpponentName.textContent = 'AI';
-  matchInfo.appendChild(displayOpponentName);
+  playersDisplay.appendChild(displayOpponentName);
 
   gameBoard.createGameBoard();
 });
