@@ -7,9 +7,10 @@ const playersDisplay = document.querySelector('#players-display');
 
 const boardContainer = document.querySelector('#board-container');
 
-const createPlayer = (name, mark) => ({ name, mark });
+const createPlayer = (name, mark, canPlay) => ({ name, mark, canPlay });
 
-let player = createPlayer();
+let player1 = createPlayer();
+let player2 = createPlayer();
 
 const displayName = document.createElement('h3');
 playersDisplay.appendChild(displayName);
@@ -22,6 +23,8 @@ const displayOpponentName = document.createElement('h3');
 playersDisplay.appendChild(displayOpponentName);
 
 const board = [];
+
+let gameStart = false;
 
 const gameBoard = (() => {
   const createCell = (mark) => ({ mark });
@@ -44,6 +47,7 @@ const gameBoard = (() => {
 const Game = (() => {
   const handleClick = (e) => {
     const cellIndex = parseInt(e.target.id.split('-')[1], 10);
+
     const updateCell = () => {
       if (board[cellIndex].mark === 'X') {
         e.target.textContent = 'X';
@@ -52,17 +56,22 @@ const Game = (() => {
         e.target.textContent = 'O';
       }
     };
-    board[cellIndex].mark = player.mark;
+    board[cellIndex].mark = player1.mark;
     updateCell();
   };
 
   const start = () => {
     gameBoard.createGameBoard();
 
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach((cell) => {
-      cell.addEventListener('click', handleClick);
-    });
+    if (board !== '') {
+      gameStart = true;
+    }
+    if (gameStart === true) {
+      const cells = document.querySelectorAll('.cell');
+      cells.forEach((cell) => {
+        cell.addEventListener('click', handleClick);
+      });
+    }
   };
 
   return { start };
@@ -72,9 +81,10 @@ const playBtn = document.querySelector('#play-btn');
 playBtn.addEventListener('click', () => {
   playerNameContainer.style.display = 'none';
 
-  player = createPlayer(playerName.value, 'X');
-  displayName.textContent = player.name;
-  displayOpponentName.textContent = 'AI';
+  player1 = createPlayer(playerName.value, 'X', true);
+  displayName.textContent = player1.name;
+  player2 = createPlayer('AI', 'O', false);
+  displayOpponentName.textContent = player2.name;
 
   matchInfo.style.display = 'block';
 
