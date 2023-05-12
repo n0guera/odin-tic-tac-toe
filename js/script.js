@@ -24,6 +24,8 @@ playersDisplay.appendChild(displayOpponentName);
 
 const board = [];
 
+const players = [];
+
 let gameStart = false;
 
 const gameBoard = (() => {
@@ -45,19 +47,35 @@ const gameBoard = (() => {
 })();
 
 const Game = (() => {
+  let currentTurn = 1;
+
   const handleClick = (e) => {
     const cellIndex = parseInt(e.target.id.split('-')[1], 10);
+    const currentPlayer = currentTurn ? players[0] : players[1];
 
     const updateCell = () => {
-      if (board[cellIndex].mark === 'X') {
-        e.target.textContent = 'X';
-      }
-      if (board[cellIndex].mark === 'O') {
-        e.target.textContent = 'O';
+      switch (board[cellIndex].mark) {
+        case 'X':
+          e.target.textContent = 'X';
+          break;
+        case 'O':
+          e.target.textContent = 'O';
+          break;
+        default:
+          break;
       }
     };
-    board[cellIndex].mark = player1.mark;
-    updateCell();
+
+    const switchTurn = () => {
+      currentTurn = !currentTurn;
+      currentPlayer.canPlay = !currentPlayer.canPlay;
+    };
+
+    if (board[cellIndex].mark === '') {
+      board[cellIndex].mark = currentPlayer.mark;
+      updateCell();
+      switchTurn();
+    }
   };
 
   const start = () => {
@@ -83,8 +101,10 @@ playBtn.addEventListener('click', () => {
 
   player1 = createPlayer(playerName.value, 'X', true);
   displayName.textContent = player1.name;
+  players.push(player1);
   player2 = createPlayer('AI', 'O', false);
   displayOpponentName.textContent = player2.name;
+  players.push(player2);
 
   matchInfo.style.display = 'block';
 
