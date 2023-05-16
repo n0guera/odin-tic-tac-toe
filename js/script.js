@@ -7,7 +7,7 @@ const playersDisplay = document.querySelector('#players-display');
 
 const boardContainer = document.querySelector('#board-container');
 
-const createPlayer = (name, mark, canPlay) => ({ name, mark, canPlay });
+const createPlayer = (name, mark) => ({ name, mark });
 
 let player1 = createPlayer();
 let player2 = createPlayer();
@@ -47,7 +47,7 @@ const gameBoard = (() => {
 })();
 
 const Game = (() => {
-  let currentTurn = 1;
+  let currentTurn = true;
 
   const handleClick = (e) => {
     const cellIndex = parseInt(e.target.id.split('-')[1], 10);
@@ -68,7 +68,6 @@ const Game = (() => {
 
     const switchTurn = () => {
       currentTurn = !currentTurn;
-      currentPlayer.canPlay = !currentPlayer.canPlay;
     };
 
     if (board[cellIndex].mark === '') {
