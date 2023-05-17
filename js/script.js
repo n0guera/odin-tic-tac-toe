@@ -42,51 +42,61 @@ const gameBoard = (() => {
       boardContainer.appendChild(cellDiv);
     });
   };
+  let cells;
 
-  return { createGameBoard };
+  const update = () => {
+    for (let i = 0; i < gameBoard.cells.length; i += 1) {
+      gameBoard.cells[i].textContent = board[i].mark;
+    }
+  };
+
+  return { createGameBoard, cells, update };
 })();
 
 const Game = (() => {
   let currentTurn = true;
-
+  let currentPlayer;
   const handleClick = (e) => {
     const cellIndex = parseInt(e.target.id.split('-')[1], 10);
-    const currentPlayer = currentTurn ? players[0] : players[1];
-
-    const updateCell = () => {
-      switch (board[cellIndex].mark) {
-        case 'X':
-          e.target.textContent = 'X';
-          break;
-        case 'O':
-          e.target.textContent = 'O';
-          break;
-        default:
-          break;
-      }
-    };
+    currentPlayer = currentTurn ? players[0] : players[1];
 
     const switchTurn = () => {
       currentTurn = !currentTurn;
+      currentPlayer = currentTurn ? players[0] : players[1];
     };
 
-    if (board[cellIndex].mark === '') {
-      board[cellIndex].mark = currentPlayer.mark;
-      updateCell();
+    const addMark = () => {
+      if (board[cellIndex].mark === '') {
+        board[cellIndex].mark = currentPlayer.mark;
+      }
+      gameBoard.update();
       switchTurn();
-    }
+    };
+
+    const computerPlay = () => {
+      const freeCells = board.filter((cell) => cell.mark === '');
+      const randomCell =
+        freeCells[Math.floor(Math.random() * freeCells.length)];
+      const randomCellIndex = board.indexOf(randomCell);
+      board[randomCellIndex].mark = currentPlayer.mark;
+      gameBoard.update();
+      switchTurn();
+    };
+
+    addMark();
+    computerPlay();
   };
 
   const start = () => {
     gameBoard.createGameBoard();
+    gameBoard.cells = document.querySelectorAll('.cell');
 
     if (board !== '') {
       gameStart = true;
     }
     if (gameStart === true) {
-      const cells = document.querySelectorAll('.cell');
-      cells.forEach((cell) => {
-        cell.addEventListener('click', handleClick);
+      gameBoard.cells.forEach((cell) => {
+        cell.addEventListener('click', handleClick, { once: true });
       });
     }
   };
@@ -98,10 +108,10 @@ const playBtn = document.querySelector('#play-btn');
 playBtn.addEventListener('click', () => {
   playerNameContainer.style.display = 'none';
 
-  player1 = createPlayer(playerName.value, 'X', true);
+  player1 = createPlayer(playerName.value, 'X');
   displayName.textContent = player1.name;
   players.push(player1);
-  player2 = createPlayer('AI', 'O', false);
+  player2 = createPlayer('COM', 'O');
   displayOpponentName.textContent = player2.name;
   players.push(player2);
 
