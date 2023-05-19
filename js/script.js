@@ -56,6 +56,7 @@ const gameBoard = (() => {
 const Game = (() => {
   let currentTurn = true;
   let currentPlayer;
+
   const handleClick = (e) => {
     const cellIndex = parseInt(e.target.id.split('-')[1], 10);
     currentPlayer = currentTurn ? players[0] : players[1];
@@ -84,7 +85,7 @@ const Game = (() => {
     };
 
     addMark();
-    computerPlay();
+    setTimeout(computerPlay, 1000);
   };
 
   const start = () => {
