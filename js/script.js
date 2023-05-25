@@ -67,9 +67,10 @@ const Game = (() => {
     };
 
     const addMark = () => {
-      if (board[cellIndex].mark === '') {
-        board[cellIndex].mark = currentPlayer.mark;
+      if (board[cellIndex].mark !== '') {
+        return;
       }
+      board[cellIndex].mark = currentPlayer.mark;
       gameBoard.update();
       switchTurn();
     };
@@ -84,14 +85,38 @@ const Game = (() => {
       switchTurn();
     };
 
+    const checkWin = () => {
+      const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+      winningCombinations.forEach((combination) => {
+        const [a, b, c] = combination;
+        const markA = board[a].mark;
+        const markB = board[b].mark;
+        const markC = board[c].mark;
+
+        if (markA !== '' && markA === markB && markA === markC) {
+          const winner = currentPlayer;
+          alert(`${winner.name} has won!`);
+        }
+      });
+    };
+
     addMark();
-    setTimeout(computerPlay, 1000);
+    computerPlay();
+    checkWin();
   };
 
   const start = () => {
     gameBoard.createGameBoard();
     gameBoard.cells = document.querySelectorAll('.cell');
-
     if (board !== '') {
       gameStart = true;
     }
