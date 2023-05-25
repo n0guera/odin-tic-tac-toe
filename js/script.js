@@ -66,25 +66,6 @@ const Game = (() => {
       currentPlayer = currentTurn ? players[0] : players[1];
     };
 
-    const addMark = () => {
-      if (board[cellIndex].mark !== '') {
-        return;
-      }
-      board[cellIndex].mark = currentPlayer.mark;
-      gameBoard.update();
-      switchTurn();
-    };
-
-    const computerPlay = () => {
-      const freeCells = board.filter((cell) => cell.mark === '');
-      const randomCell =
-        freeCells[Math.floor(Math.random() * freeCells.length)];
-      const randomCellIndex = board.indexOf(randomCell);
-      board[randomCellIndex].mark = currentPlayer.mark;
-      gameBoard.update();
-      switchTurn();
-    };
-
     const checkWin = () => {
       const winningCombinations = [
         [0, 1, 2],
@@ -109,9 +90,29 @@ const Game = (() => {
       });
     };
 
+    const addMark = () => {
+      if (board[cellIndex].mark !== '') {
+        return;
+      }
+      board[cellIndex].mark = currentPlayer.mark;
+      gameBoard.update();
+      checkWin();
+      switchTurn();
+    };
+
+    const computerPlay = () => {
+      const freeCells = board.filter((cell) => cell.mark === '');
+      const randomCell =
+        freeCells[Math.floor(Math.random() * freeCells.length)];
+      const randomCellIndex = board.indexOf(randomCell);
+      board[randomCellIndex].mark = currentPlayer.mark;
+      gameBoard.update();
+      checkWin();
+      switchTurn();
+    };
+
     addMark();
     computerPlay();
-    checkWin();
   };
 
   const start = () => {
