@@ -3,6 +3,7 @@ const playerName = document.querySelector('#player-name');
 
 const matchInfo = document.querySelector('#match-info');
 matchInfo.style.display = 'none';
+
 const playersDisplay = document.querySelector('#players-display');
 
 const boardContainer = document.querySelector('#board-container');
@@ -12,8 +13,8 @@ const createPlayer = (name, mark) => ({ name, mark });
 let player1 = createPlayer();
 let player2 = createPlayer();
 
-const displayName = document.createElement('h3');
-playersDisplay.appendChild(displayName);
+const displayPlayerName = document.createElement('h3');
+playersDisplay.appendChild(displayPlayerName);
 
 const displayVersus = document.createElement('h3');
 displayVersus.textContent = 'vs';
@@ -22,11 +23,14 @@ playersDisplay.appendChild(displayVersus);
 const displayOpponentName = document.createElement('h3');
 playersDisplay.appendChild(displayOpponentName);
 
+const displayResult = document.querySelector('#display-result');
+
 const board = [];
 
 const players = [];
 
 let gameStart = false;
+let gameOver = false;
 
 const gameBoard = (() => {
   const createCell = (mark) => ({ mark });
@@ -42,15 +46,15 @@ const gameBoard = (() => {
       boardContainer.appendChild(cellDiv);
     });
   };
-  let cells;
+  let boardCells;
 
-  const update = () => {
-    for (let i = 0; i < gameBoard.cells.length; i += 1) {
-      gameBoard.cells[i].textContent = board[i].mark;
+  const updateBoard = () => {
+    for (let i = 0; i < gameBoard.boardCells.length; i += 1) {
+      gameBoard.boardCells[i].textContent = board[i].mark;
     }
   };
 
-  return { createGameBoard, cells, update };
+  return { createGameBoard, boardCells, updateBoard };
 })();
 
 const Game = (() => {
@@ -67,6 +71,8 @@ const Game = (() => {
     };
 
     const checkWin = () => {
+      if (gameOver) return;
+
       const winningCombinations = [
         [0, 1, 2],
         [3, 4, 5],
@@ -84,18 +90,22 @@ const Game = (() => {
         const markC = board[c].mark;
 
         if (markA !== '' && markA === markB && markA === markC) {
+          gameOver = true;
           const winner = currentPlayer;
-          alert(`${winner.name} has won!`);
+          const displayWinner = document.createElement('div');
+          displayWinner.setAttribute('id', 'display-winner');
+          displayWinner.textContent = `${winner.name} has won!`;
+          displayResult.appendChild(displayWinner);
         }
       });
     };
 
-    const addMark = () => {
+    const addPlayerMark = () => {
       if (board[cellIndex].mark !== '') {
         return;
       }
       board[cellIndex].mark = currentPlayer.mark;
-      gameBoard.update();
+      gameBoard.updateBoard();
       checkWin();
       switchTurn();
     };
@@ -106,23 +116,23 @@ const Game = (() => {
         freeCells[Math.floor(Math.random() * freeCells.length)];
       const randomCellIndex = board.indexOf(randomCell);
       board[randomCellIndex].mark = currentPlayer.mark;
-      gameBoard.update();
+      gameBoard.updateBoard();
       checkWin();
       switchTurn();
     };
 
-    addMark();
+    addPlayerMark();
     computerPlay();
   };
 
   const start = () => {
     gameBoard.createGameBoard();
-    gameBoard.cells = document.querySelectorAll('.cell');
+    gameBoard.boardCells = document.querySelectorAll('.cell');
     if (board !== '') {
       gameStart = true;
     }
     if (gameStart === true) {
-      gameBoard.cells.forEach((cell) => {
+      gameBoard.boardCells.forEach((cell) => {
         cell.addEventListener('click', handleClick, { once: true });
       });
     }
@@ -136,7 +146,7 @@ playBtn.addEventListener('click', () => {
   playerNameContainer.style.display = 'none';
 
   player1 = createPlayer(playerName.value, 'X');
-  displayName.textContent = player1.name;
+  displayPlayerName.textContent = player1.name;
   players.push(player1);
   player2 = createPlayer('COM', 'O');
   displayOpponentName.textContent = player2.name;

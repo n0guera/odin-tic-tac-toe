@@ -104,3 +104,9 @@ h3 {
   border: 4px solid #cc1424;
   font-size: 7rem;
 }
+
+#display-winner {
+  display: block;
+  height: min-content;
+  width: auto;
+}
