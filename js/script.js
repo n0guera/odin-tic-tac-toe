@@ -91,6 +91,9 @@ const Game = (() => {
 
         if (markA !== '' && markA === markB && markA === markC) {
           gameOver = true;
+          gameBoard.boardCells.forEach((cell) => {
+            cell.removeEventListener('click', handleClick, { once: true });
+          });
           const winner = currentPlayer;
           const displayWinner = document.createElement('div');
           displayWinner.setAttribute('id', 'display-winner');
