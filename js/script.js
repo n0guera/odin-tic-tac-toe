@@ -149,6 +149,8 @@ const Game = (() => {
     board = [];
     players = [];
     gameBoard.clearBoard();
+    gameStart = false;
+    gameOver = false;
     playerNameContainer.style.display = 'none';
 
     player1 = createPlayer(playerName.value, 'X');
