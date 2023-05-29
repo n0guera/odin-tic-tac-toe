@@ -8,6 +8,8 @@ const playersDisplay = document.querySelector('#players-display');
 
 const boardContainer = document.querySelector('#board-container');
 
+const buttonContainer = document.querySelector('#button-container');
+
 const createPlayer = (name, mark) => ({ name, mark });
 
 let player1 = createPlayer();
@@ -100,6 +102,7 @@ const Game = (() => {
           displayWinner.textContent = `${winner.name} has won!`;
           matchInfo.style.display = 'none';
           displayResult.appendChild(displayWinner);
+          buttonContainer.style.display = 'flex';
         }
       });
     };

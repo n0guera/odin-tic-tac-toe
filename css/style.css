@@ -14,7 +14,9 @@ body {
 
 #player-name,
 #player-name-label,
-#play-btn {
+#play-btn,
+#new-round,
+#restart-btn {
   display: flex;
   align-items: center;
   font-family: 'Darumadrop One', cursive;
@@ -69,7 +71,9 @@ h3 {
   border-radius: 4px;
 }
 
-#play-btn {
+#play-btn,
+#new-round,
+#restart-btn {
   border: 2px solid black;
   border-radius: 4px;
   background-color: #ffbf40;
@@ -82,6 +86,12 @@ h3 {
 #players-display {
   display: flex;
   justify-content: space-evenly;
+}
+
+#display-winner {
+  display: block;
+  height: min-content;
+  width: auto;
 }
 
 #board-container {
@@ -105,8 +115,11 @@ h3 {
   font-size: 7rem;
 }
 
-#display-winner {
-  display: block;
-  height: min-content;
-  width: auto;
+#button-container {
+  display: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 2rem;
 }
