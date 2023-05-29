@@ -9,6 +9,8 @@ const playersDisplay = document.querySelector('#players-display');
 const boardContainer = document.querySelector('#board-container');
 
 const buttonContainer = document.querySelector('#button-container');
+const newRoundBtn = document.querySelector('#new-round-btn');
+const restartGameBtn = document.querySelector('#restart-btn');
 
 const createPlayer = (name, mark) => ({ name, mark });
 
@@ -27,9 +29,9 @@ playersDisplay.appendChild(displayOpponentName);
 
 const displayResult = document.querySelector('#display-result');
 
-const board = [];
+let board = [];
 
-const players = [];
+let players = [];
 
 let gameStart = false;
 let gameOver = false;
@@ -56,7 +58,11 @@ const gameBoard = (() => {
     }
   };
 
-  return { createGameBoard, boardCells, updateBoard };
+  const clearBoard = () => {
+    boardContainer.innerHTML = '';
+  };
+
+  return { createGameBoard, boardCells, updateBoard, clearBoard };
 })();
 
 const Game = (() => {
@@ -90,7 +96,6 @@ const Game = (() => {
         const markA = board[a].mark;
         const markB = board[b].mark;
         const markC = board[c].mark;
-
         if (markA !== '' && markA === markB && markA === markC) {
           gameOver = true;
           gameBoard.boardCells.forEach((cell) => {
@@ -103,6 +108,14 @@ const Game = (() => {
           matchInfo.style.display = 'none';
           displayResult.appendChild(displayWinner);
           buttonContainer.style.display = 'flex';
+          const newRound = () => {
+            displayResult.style.display = 'none';
+            buttonContainer.style.display = 'none';
+            Game.start();
+          };
+          newRoundBtn.addEventListener('click', newRound);
+          const restartGame = () => {};
+          restartGameBtn.addEventListener('click', restartGame);
         }
       });
     };
@@ -133,6 +146,19 @@ const Game = (() => {
   };
 
   const start = () => {
+    board = [];
+    players = [];
+    gameBoard.clearBoard();
+    playerNameContainer.style.display = 'none';
+
+    player1 = createPlayer(playerName.value, 'X');
+    displayPlayerName.textContent = player1.name;
+    players.push(player1);
+    player2 = createPlayer('COM', 'O');
+    displayOpponentName.textContent = player2.name;
+    players.push(player2);
+
+    matchInfo.style.display = 'block';
     gameBoard.createGameBoard();
     gameBoard.boardCells = document.querySelectorAll('.cell');
     if (board !== '') {
@@ -150,16 +176,5 @@ const Game = (() => {
 
 const playBtn = document.querySelector('#play-btn');
 playBtn.addEventListener('click', () => {
-  playerNameContainer.style.display = 'none';
-
-  player1 = createPlayer(playerName.value, 'X');
-  displayPlayerName.textContent = player1.name;
-  players.push(player1);
-  player2 = createPlayer('COM', 'O');
-  displayOpponentName.textContent = player2.name;
-  players.push(player2);
-
-  matchInfo.style.display = 'block';
-
   Game.start();
 });
