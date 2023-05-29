@@ -104,16 +104,6 @@ const Game = (() => {
       });
     };
 
-    const addPlayerMark = () => {
-      if (board[cellIndex].mark !== '') {
-        return;
-      }
-      board[cellIndex].mark = currentPlayer.mark;
-      gameBoard.updateBoard();
-      checkWin();
-      switchTurn();
-    };
-
     const computerPlay = () => {
       const freeCells = board.filter((cell) => cell.mark === '');
       const randomCell =
@@ -125,8 +115,18 @@ const Game = (() => {
       switchTurn();
     };
 
-    addPlayerMark();
-    computerPlay();
+    const addMark = () => {
+      if (board[cellIndex].mark !== '') {
+        return;
+      }
+      board[cellIndex].mark = currentPlayer.mark;
+      gameBoard.updateBoard();
+      checkWin();
+      switchTurn();
+      computerPlay();
+    };
+
+    addMark();
   };
 
   const start = () => {
