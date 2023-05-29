@@ -95,9 +95,10 @@ const Game = (() => {
             cell.removeEventListener('click', handleClick, { once: true });
           });
           const winner = currentPlayer;
-          const displayWinner = document.createElement('div');
+          const displayWinner = document.createElement('h3');
           displayWinner.setAttribute('id', 'display-winner');
           displayWinner.textContent = `${winner.name} has won!`;
+          matchInfo.style.display = 'none';
           displayResult.appendChild(displayWinner);
         }
       });
