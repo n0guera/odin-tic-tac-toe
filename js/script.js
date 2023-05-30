@@ -116,7 +116,13 @@ const Game = (() => {
             Game.start();
           };
           newRoundBtn.addEventListener('click', newRound);
-          const restartGame = () => {};
+          const restartGame = () => {
+            playerNameContainer.style.display = 'flex';
+            gameBoard.clearBoard();
+            displayResult.textContent = '';
+            displayResult.style.display = 'none';
+            buttonContainer.style.display = 'none';
+          };
           restartGameBtn.addEventListener('click', restartGame);
         }
       });
