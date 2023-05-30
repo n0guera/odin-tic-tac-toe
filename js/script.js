@@ -125,10 +125,21 @@ const Game = (() => {
           };
           restartGameBtn.addEventListener('click', restartGame);
         }
+        if (board.every((cell) => cell.mark !== '') && gameOver === false) {
+          gameOver = true;
+          const displayDraw = document.createElement('h3');
+          displayDraw.setAttribute('id', 'display-draw');
+          displayDraw.textContent = "It's a draw";
+          displayResult.appendChild(displayDraw);
+          matchInfo.style.display = 'none';
+          displayResult.style.display = 'block';
+          buttonContainer.style.display = 'flex';
+        }
       });
     };
 
     const computerPlay = () => {
+      if (gameOver) return;
       const freeCells = board.filter((cell) => cell.mark === '');
       const randomCell =
         freeCells[Math.floor(Math.random() * freeCells.length)];
@@ -159,6 +170,7 @@ const Game = (() => {
     gameBoard.clearBoard();
     gameStart = false;
     gameOver = false;
+    currentTurn = true;
     const computerNames = [
       'COM',
       'GlaDOS',
