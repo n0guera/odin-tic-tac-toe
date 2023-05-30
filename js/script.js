@@ -105,10 +105,12 @@ const Game = (() => {
           const displayWinner = document.createElement('h3');
           displayWinner.setAttribute('id', 'display-winner');
           displayWinner.textContent = `${winner.name} has won!`;
-          matchInfo.style.display = 'none';
           displayResult.appendChild(displayWinner);
+          matchInfo.style.display = 'none';
+          displayResult.style.display = 'block';
           buttonContainer.style.display = 'flex';
           const newRound = () => {
+            displayResult.textContent = '';
             displayResult.style.display = 'none';
             buttonContainer.style.display = 'none';
             Game.start();
