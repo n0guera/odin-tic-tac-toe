@@ -159,12 +159,25 @@ const Game = (() => {
     gameBoard.clearBoard();
     gameStart = false;
     gameOver = false;
+    const computerNames = [
+      'COM',
+      'GlaDOS',
+      'GPT-5',
+      'KITT',
+      'Cortana',
+      'Alexa',
+      'TARS',
+      'T-800',
+      'HAL-9000',
+    ];
+    const getComputerName =
+      computerNames[Math.floor(Math.random() * computerNames.length)];
     playerNameContainer.style.display = 'none';
 
     player1 = createPlayer(playerName.value, 'X');
     displayPlayerName.textContent = player1.name;
     players.push(player1);
-    player2 = createPlayer('COM', 'O');
+    player2 = createPlayer(getComputerName, 'O');
     displayOpponentName.textContent = player2.name;
     players.push(player2);
 
